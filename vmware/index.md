@@ -66,7 +66,7 @@ This workshop should take roughly three hours to complete.
 
 ---
 name: terraform-cloud-what-it-is
-# Terraform Cloud - ClickOps & DevOps Workflow
+# Terraform - ClickOps & DevOps Workflow
 
 .center[
 ![:scale 90%](images/cloud_overview_vmware.png)<br>

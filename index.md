@@ -51,15 +51,13 @@ name: Table-of-Contents
 1. What is Terraform<br>
 2. What is IAC<br>
 3. Why Terraform & VMware<br>
-4. Terraform Open Source  & The Basics<br>
-5. Terraform In Action<br>
-7. Provision and Configure VMware VMs<br>
-8. Manage and Change Infrastructure State<br>
-9. Terraform Cloud<br>
-10. Security and RBACs<br>
-11. VCS & Policy Enforcement<br>
-12. Terraform Modules & API<br>
-13. Service Now Integration<br>
+4. Terraform Open Source & The Basics<br>
+5. Provision and Configure VMware VMs<br>
+6. Manage and Change Infrastructure State<br>
+7. Terraform Enterprise/Cloud<br>
+8. Security and RBACs<br>
+9. Version Control & Policy Enforcement<br>
+10. Terraform Modules & API<br>
 
 ???
 This workshop should take roughly three hours to complete.
@@ -70,7 +68,7 @@ name: terraform-cloud-what-it-is
 
 .center[
 ![:scale 90%](images/cloud_overview_vmware.png)<br>
-The End Goal
+The end goal of today will be to understand this workflow.
 ]
 
 ???
@@ -101,8 +99,10 @@ Let's look at a few different ways you could provision a new VMware Virtual Mach
 
 ---
 name: VMware-Portal-Provision
-# Method 1: VMware UI (GUI)
-![:scale 70%](images/vsphere_web_client.jpg)
+# Method 1: VMware/VSphere/VCenter UI (GUI)
+.center[
+  ![:scale 70%](images/vsphere_web_client.jpg)
+]
 
 ???
 **This should look familiar if you've ever used VMware. You click on Virtual Machines, and you'll see a whole list of different base images you can use to provision your VM. Some of these are provided by Microsoft, others are provided by third parties in the marketplace. You either search or browse for the thing you need, and click on it. Easy.**
@@ -110,8 +110,9 @@ name: VMware-Portal-Provision
 ---
 name: VMware-Portal-Provision-2
 # Method 1: VRA Portal (GUI)
+.center[
 ![:scale 70%](images/vra7-2015.png)
-
+]
 ???
 **Once you've chosen your base OS image, you will fill in some more details like the size of the VM, which location you want to run it in, and the initial administrator password. The VMware portal can be handy for spinning up individual VMs and dev or test environments. The good news is it's really easy to spin up infrastructure this way. The bad news is that it doesn't scale, and chances are nobody's keeping track of what got built.**
 
@@ -135,7 +136,7 @@ inputs:
       - Windows
 ```
 
-VRA templates provide a consistent and reliable way to provision VMware resources. JSON is easy for computers to read, but can be challenging for humans to edit and troubleshoot.
+VRA templates provide a consistent and reliable way to provision VMware resources.
 
 ???
 
@@ -155,7 +156,7 @@ function handler($context, $payload) {
     return $returnObj
 }
 ```
-
+.center[Can be difficult to read and author for some users.]
 ???
 ---
 name: Provision-with-Terraform-2
@@ -214,7 +215,7 @@ name: IaC2
 
 ---
 name: IaC2
-# Infrastructure as Code Allows Us To...
+# Infrastructure as Code with Terraform Allows Us To...
 * Provide a codified workflow to create infrastructure
 * Change and update existing infrastructure
 * Safely test changes using **`terraform plan`** in dry run mode
@@ -230,7 +231,9 @@ name: IaC2
 ---
 Name: Why-Terraform
 # Why Terraform and VMware?
+.center[
 ![:scale 80%](images/vmware-loves-terraform.png)
+]
 
 ???
 
@@ -244,14 +247,18 @@ Name: Why-Terraform-2
 ---
 Name: Why-Terraform-3
 # Why Terraform and VMware?
+.center[
 ![:scale 80%](images/Terraform-Service-in-vRA.png)
+]
 
 ???
 
 ---
 Name: Why-Terraform-4
 # Why Terraform and VMware?
+.center[
 ![:scale 80%](images/vmware-terraform-providers.png)<br>
+]
 .center[Terraform Re-Useable Modules]<br>
 ???
 

@@ -372,28 +372,6 @@ Preview your changes with `terraform plan` before you apply them.
 **`terraform plan` is a dry run command. We're not actually building anything yet, Terraform is just telling is what it would do if we ran it for real.**
 
 ---
-name: defining-variables
-# Where are Variables Defined?
-Terraform variables are placed in a file called *variables.tf*. Variables can have default settings. If you omit the default, the user will be prompted to enter a value. Here we are *declaring* the variables that we intend to use.
-
-```tex
-variable "prefix" {
-  description = "This prefix will be included in the name of most resources."
-}
-
-variable "location" {
-  description = "The region where the virtual network is created."
-* default     = "vmware-dc-01"
-}
-```
-
-???
-**If you're curious where all these variables are defined, you can see them all in the _variables.tf_ file. Here we are simply defining all the available settings, and optionally declaring some default values. These defaults are what terraform will use if your user doesn't override them with their own settings.**
-
-Q. Where could you override these defaults?<br>
-A. In the terraform.tfvars file, or optionally on the command line or via environment variables. The most common approach is to use a tfvars file.
-
----
 name: Chapter-3
 class: title
 # Chapter 3

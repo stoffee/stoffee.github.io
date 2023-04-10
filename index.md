@@ -481,17 +481,6 @@ Plan: 0 to add, 0 to change, 1 to destroy.
 **Terraform can just as easily destroy infrastructure as create it. With great power comes great responsibility!**
 
 ---
-name: terraform-fmt
-# Terraform Format
-Terraform comes with a built in code formatter/cleaner. It can make all your margins and list indentation neat and tidy. Beauty works better.
-
-```tex
-terraform fmt
-```
-
-Simply run it in a directory containing *.tf files and it will tidy up your code for you.
-
----
 name: dependency-mapping
 class: compact
 # Terraform Dependency Mapping
@@ -508,87 +497,6 @@ resource "vra_deployment" "this" {
 *  project_id  = data.vra_project.this.id
 }
 ```
-
----
-name: organizing-your-terraform
-# Organize Your Terraform Code
-Terraform will read any file in your workspace that ends in a `.tf` extension, but the convention is to have a main.tf, variables.tf, and outputs.tf. You may add more tf files if you wish.
-
-```bash
-main.tf
-variables.tf
-outputs.tf
-```
-
-Let's take a closer look at each of these files.
-
----
-name: terraform-main
-class: compact
-# The Main File
-
-The first file is called main.tf. This is where you normally store your terraform code. With larger, more complex infrastructure you might break this up across several files.
-
-```bash
-# This is the main.tf file.
-provider "vra" {
-  url           = var.url
-}
-data "vra_project" "this" {
-  name = var.project_name
-}
-resource "vra_deployment" "this" {
-  name        = var.deployment_name
-  description = "terraform test deployment"
-
-  project_id           = data.vra_project.this.id
-}
-```
-
-???
-**We've removed all the comments from this code so it will fit on the slide.**
-
----
-name: terraform-variables
-class: compact
-# The Variables File
-
-The second file is called variables.tf. This is where you define your variables and optionally set some defaults.
-
-```bash
-variable "prefix" {
-  description = "This prefix will be included in the name of most resources."
-}
-
-variable "location" {
-  description = "The region where the virtual network is created."
-  default     = "vmware-dc-01"
-}
-
-variable "address_space" {
-  description = "The address space that is used by the virtual network. You can supply more than one address space. Changing this forces a new resource to be created."
-  default     = "10.0.0.0/16"
-}
-```
-
----
-name: terraform-outputs
-class: compact
-# The Outputs File
-The outputs file is where you configure any messages or data you want to show at the end of a terraform apply.
-
-```terraform
-output "Vault_Server_URL" {
-  value = "http://${vsphere_virtual_machine.vm.fqdn}:8200"
-}
-
-output "MySQL_Server_FQDN" {
-  value = "${vsphere_virtual_machine.mysql.fqdn}"
-}
-```
-
-???
-**This bit here with the EOF is an example of a HEREDOC. It allows you store multi-line text in an output.**
 
 ---
 name: tf-dependency-graph
@@ -1108,18 +1016,6 @@ class: img-right-full
 **Terraform Cloud has built in support for encryption and storage of any short string of text. This allows you to safely use these credentials during the provisioning process without exposing them in plaintext or storing them on someone's laptop.**
 
 ---
-name: where-are-your-creds
-# Where Are Your API Keys?
-Terraform requires credentials in order to communicate with your cloud provider's API.
-
-These API keys should **never** be stored directly in your terraform code.
-
-Config files and environment variables are a better option, but the credentials still live on your workstation, usually stored in plaintext.
-
-???
-**In case we weren't clear earlier, do not ever store credentials in your terraform code. Don't do it.**
-
----
 name: a-better-way-creds
 # A Better Way to Store Sensitive Data
 
@@ -1153,6 +1049,68 @@ Workspaces access levels include read, plan, write, and admin. Super users can a
 ???
 **You'll probably start out with a few admins, but as your terraform usage grows more and more users and applications will need different levels of access.**
 
+---
+name: TFE-Chapter-4
+class: title
+# Chapter 10
+## Modules and API Automation
+
+???
+**This is the final content chapter where we'll cover the private module registry and API automation.**
+
+---
+name: private-module-registry
+class: title, smokescreen, shelf
+background-image: url(images/lego_wallpaper.jpg)
+# Terraform Modules
+## Reusable Infrastructure as Code
+
+???
+**First let's take a look at modules. Modules are fun, like these LEGO bricks.**
+
+---
+name: what-even-is-module
+# What is a Terraform Module?
+.center[![:scale 90%](images/vmware_vm_module.png)
+]
+
+???
+
+---
+name: how-modules-configured
+# How are Terraform Modules Configured?
+Creating Terraform Modules in 3 easy steps:
+
+1. Write some Terraform code, configuring inputs and outputs.
+2. Store the Terraform code somewhere your workstation can access it.
+3. Reference your modules by file path or source URL.
+
+Sounds easy right?
+
+What if you had to manage dozens or hundreds of modules, with different versions of each?
+
+???
+**Think of a terraform module like a black box. Variables (inputs) go in one side, and outputs come out the other side. What happens in the middle is really none of the user's business, as long as they get what they wanted from the module. This lets you control what users are able to build, and guide them to the right path by putting guard rails around them. You can hide variables and settings that the user should not tinker with, and this also keeps things simpler for the end user who just wants their VPC to work so they can build some instances.**
+
+**The challenge is when you start having dozens or hundreds of modules and lots of users consuming them...you really need a centralized way to manage this stuff, which brings us to...**
+
+---
+name: private-module-registry
+class: img-right
+# Private Module Registry
+![](images/vmware_pmr.png)
+
+Terraform modules are reusable packages of Terraform code that you can use to build your infrastructure.
+
+Terraform Cloud includes a Private Module Registry where you can store, version, and distribute modules to your organizations and teams.
+
+???
+**This is just like the public module registry but it runs inside your own Terraform Organization where only your users can access it. This way you can share private or confidential code, or even take the public modules and fork them for your own use.**
+
+---
+name: api-driven-workflows
+class: title, smokescreen, shelf
+background-image: url(images/enter_the_matrix.jpg)
 ---
 name: TFE-Chapter-3
 class: title
@@ -1303,68 +1261,7 @@ name: org-or-workspace
 ???
 **You can be very specific or very broad with your policy enforcement. Organization-wide policies can be implemented to ensure that basic security rules are always followed everywhere.**
 
----
-name: TFE-Chapter-4
-class: title
-# Chapter 10
-## Modules and API Automation
 
-???
-**This is the final content chapter where we'll cover the private module registry and API automation.**
-
----
-name: private-module-registry
-class: title, smokescreen, shelf
-background-image: url(images/lego_wallpaper.jpg)
-# Terraform Modules
-## Reusable Infrastructure as Code
-
-???
-**First let's take a look at modules. Modules are fun, like these LEGO bricks.**
-
----
-name: what-even-is-module
-# What is a Terraform Module?
-.center[![:scale 90%](images/vmware_vm_module.png)
-]
-
-???
-
----
-name: how-modules-configured
-# How are Terraform Modules Configured?
-Creating Terraform Modules in 3 easy steps:
-
-1. Write some Terraform code, configuring inputs and outputs.
-2. Store the Terraform code somewhere your workstation can access it.
-3. Reference your modules by file path or source URL.
-
-Sounds easy right?
-
-What if you had to manage dozens or hundreds of modules, with different versions of each?
-
-???
-**Think of a terraform module like a black box. Variables (inputs) go in one side, and outputs come out the other side. What happens in the middle is really none of the user's business, as long as they get what they wanted from the module. This lets you control what users are able to build, and guide them to the right path by putting guard rails around them. You can hide variables and settings that the user should not tinker with, and this also keeps things simpler for the end user who just wants their VPC to work so they can build some instances.**
-
-**The challenge is when you start having dozens or hundreds of modules and lots of users consuming them...you really need a centralized way to manage this stuff, which brings us to...**
-
----
-name: private-module-registry
-class: img-right
-# Private Module Registry
-![](images/vmware_pmr.png)
-
-Terraform modules are reusable packages of Terraform code that you can use to build your infrastructure.
-
-Terraform Cloud includes a Private Module Registry where you can store, version, and distribute modules to your organizations and teams.
-
-???
-**This is just like the public module registry but it runs inside your own Terraform Organization where only your users can access it. This way you can share private or confidential code, or even take the public modules and fork them for your own use.**
-
----
-name: api-driven-workflows
-class: title, smokescreen, shelf
-background-image: url(images/enter_the_matrix.jpg)
 # Terraform Cloud API
 ## Automate Everything
 

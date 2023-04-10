@@ -1053,7 +1053,7 @@ Workspaces access levels include read, plan, write, and admin. Super users can a
 name: TFE-Chapter-4
 class: title
 # Chapter 10
-## Modules and API Automation
+## Terraform Modules
 
 ???
 **This is the final content chapter where we'll cover the private module registry and API automation.**

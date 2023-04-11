@@ -997,29 +997,6 @@ Terraform Cloud can safely store your credentials and encrypt them for you. You 
 **Here's an example of storing VMware credentials safely so that we can use them inside of a workspace. The user doesn't have to manage these once they are set.**
 
 ---
-name: terraform-teams
-class: title, smokescreen, shelf
-background-image: url(images/teamwork.png)
-# Terraform Cloud Teams
-## Role-Based Access Controls (RBAC)
-
-???
-**This section is about teams and role based access controls.**
-
----
-name: terraform-rbac-2
-class: img-right
-# Teams for Terraform Collaboration
-![](images/teams_gui.png)
-
-Teams are used to grant different levels of access to different parts of your Terraform infrastructure, depending on the user's role.
-
-Workspaces access levels include read, plan, write, and admin. Super users can also be granted organization wide permissions for managing policies and VCS settings.
-
-???
-**You'll probably start out with a few admins, but as your terraform usage grows more and more users and applications will need different levels of access.**
-
----
 name: TFE-Chapter-4
 class: title
 # Chapter 10

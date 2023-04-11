@@ -1107,7 +1107,6 @@ Terraform Cloud can directly integrate with source code repos in GitHub Enterpri
 
 https://xkcd.com/1597/
 
-For this workshop you'll only need four or five git commands.
 
 ???
 **If you've never used git before, don't worry. We are only going to be using four or five basic commands. And as our friends at XKCD have pointed out, you can always wipe everything clean and clone a fresh copy of the code.**

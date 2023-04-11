@@ -819,15 +819,6 @@ name: snow-integration
 * Approved Modules with Governance
 ???
 
----
-name: terraform-cloud-what-is-it
-# Terraform Cloud - ClickOps & DevOps Workflow
-
-.center[
-![:scale 90%](images/cloud_overview_vmware.png)
-]
-
-???
 
 ---
 name: why-tfc-1
@@ -1299,6 +1290,16 @@ name: api-use-cases
 ???
 **Here are just a few of the things you might build with the Terraform Cloud API.**
 
+
+---
+name: terraform-cloud-what-is-it
+# Terraform Cloud - ClickOps & DevOps Workflow
+
+.center[
+![:scale 90%](images/cloud_overview_vmware.png)
+]
+
+???
 
 ---
 name: additional-resources

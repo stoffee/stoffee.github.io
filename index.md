@@ -698,7 +698,7 @@ class: title
 name: terraform-cloud
 class: img-right
 # What is Terraform Cloud
-##### Terraform Cloud is a free to use SaaS and On-Prem application that provides the best workflow for writing and building infrastructure as code with Terraform.
+##### Terraform Cloud is a SaaS and On-Prem application that provides the best workflow for writing and building infrastructure as code with Terraform.
 ![Terraform Cloud](https://hashicorp.github.io/field-workshops-assets/assets/logos/Terraform_Cloud_Logo_Color_RGB.png)
 
 * State storage and management
@@ -790,10 +790,9 @@ name: multi-platform-compliance
 ![:scale 80%](images/terraform_on_prem.png)
 ]
 
-Terraform also integrates with on premise VMs or platform services.
+Terraform can run on premise or as a cloud based SaaS with agents.
 
 ???
-**Terraform Cloud and Enterprise can be used to build VMs in your data center, or VMware instances in the cloud, or both. You won't have to maintain two sets of tools to build on your hybrid cloud platforms.**
 
 ---
 name: self-service-infra
@@ -809,15 +808,6 @@ Enable users to build what they need without running up a huge bill or putting y
 **Terraform Cloud encourages safe provisioning via reusable modules and policy enforcement. Now users can build exactly what they need to do their jobs without breaking things or putting your organization at risk. A slow and cumbersome approval process is no longer required because the automation enforces best practices without manual code reviews.**
 
 ---
-name: terraform-cloud-what-is-it
-# Terraform Cloud - ClickOps & DevOps Workflow
-
-.center[
-![:scale 90%](images/cloud_overview_vmware.png)
-]
-
-???
----
 name: snow-integration
 # Terraform Service Now Integration
 ![](images/tf_snow_store.png)
@@ -827,6 +817,16 @@ name: snow-integration
 * Approvals in SNOW or Terraform Cloud
 * Self-service portal with Terraform on the backend
 * Approved Modules with Governance
+???
+
+---
+name: terraform-cloud-what-is-it
+# Terraform Cloud - ClickOps & DevOps Workflow
+
+.center[
+![:scale 90%](images/cloud_overview_vmware.png)
+]
+
 ???
 
 ---
@@ -945,27 +945,6 @@ The local state file has some disadvantages:
 
 ???
 **Let's not be the dog at my homework kid. There's no excuse for losing your state file because you can easily store it for free in your Terraform Cloud account.**
-
----
-name: tfcloud-remote-state
-# Terraform Cloud Remote State
-Terraform Cloud Remote State is free and available to all users. The requirements to get it set up and working are below.
-
-* Free or paid Terraform Cloud account
-* A **`.terraformrc`** (Unix/Linux) or **`terraform.rc`** (Windows) config file
-* User access token stored in your config file
-* Remote backend config file. We name it **`remote_backend.tf`** for consistency.
-
-**WARNING** - do not copy your Terraform Cloud API token to github!
-
-https://www.terraform.io/docs/backends/types/remote.html
-
-???
-**Please raise your right hand and repeat after me:**
-
-**"I will never store credentials in my terraform workspace."**
-
-The reason for the stern warning is because users have been copying this .terraformrc file to github during training workshops. Don't do it. Edit the file once, put your token in, and leave it alone. dot-files are hidden for a reason.
 
 ---
 name: TFE-Chapter-2

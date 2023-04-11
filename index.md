@@ -259,7 +259,7 @@ Name: Why-Terraform-4
 .center[
 ![:scale 80%](images/vmware-terraform-providers.png)<br>
 ]
-.center[Terraform Re-Useable Modules]<br>
+.center[Terraform VMware Providers]<br>
 ???
 
 ---
